@@ -4,6 +4,25 @@ var express_graphql = require('express-graphql');
 var {buildSchema} = require('graphql');
 
 //GraphQL Schema 
+//a basic schema returning a string
 var schema = buildSchema(`
-
+    type Query {
+        message: String
+    }
 `);
+
+//a function thats called each time query from the schema needs to be excuted 
+var root = {
+    message: () => 'Hello World'
+};
+
+//Create an express server and a GraphQL endpoint
+var app = express();
+//graphQL endpoint > add the express graphQL middleware thats expects a parameter
+app.use('/graphql', express_graphql({
+    schema: schema,
+    rootValue: root,
+    graphiql: true
+}));
+
+app.listen(4000, () => console.log('Express GraphQL Server Now Running On localhost 4000'));
