@@ -22,6 +22,7 @@ var app = express();
 app.use('/graphql', express_graphql({
     schema: schema,
     rootValue: root,
+    //GraphiQL is an in-browser took for writing, validating, & testing GraphQL queries
     graphiql: true
 }));
 
