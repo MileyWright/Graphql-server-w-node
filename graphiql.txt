@@ -111,3 +111,37 @@ fragment courseFields on Course {
     }
   }
 }
+
+//Updating data
+mutation updateCourseTopic($id: Int!, $topic: String!) {
+  updateCourseTopic(id: $id, topic: $topic) {
+    ...courseFields
+  }
+}
+
+fragment courseFields on Course {
+  title
+  author
+  description
+  topic
+  url
+}
+
+//query variables
+{
+  "id": 1,
+  "topic": "JavaScript"
+}
+
+//Output
+{
+  "data": {
+    "updateCourseTopic": {
+      "title": "The Complete Node.js Developer Course",
+      "author": "Andrew Mead, Rob Percival",
+      "description": "Learn Node.js by building real-world applications with Node, Express, MongoDB, Mocha, and more!",
+      "topic": "JavaScript",
+      "url": "https://codingthesmartway.com/courses/nodejs/"
+    }
+  }
+}
