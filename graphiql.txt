@@ -1,0 +1,113 @@
+//What to enter to GraphiQL to get course by Id
+ query getCoursesById($courseId: Int!) {
+   course(id: $courseId) {
+     title
+     author
+     description
+     topic
+     url
+   }
+ }
+//query variable
+ {
+   "courseId": 1
+ }
+// Output
+ {
+     "data": {
+       "course": {
+         "title": "The Complete Node.js Developer Course",
+         "author": "Andrew Mead, Rob Percival",
+         "description": "Learn Node.js by building real-world applications with Node, Express, MongoDB, Mocha, and more!",
+         "topic": "Node.js",
+         "url": "https://codingthesmartway.com/courses/nodejs/"
+       }
+     }
+   }
+
+
+
+
+
+//what to enter in GraphiQL to get courses by topic
+ query getCoursesForTopic($courseTopic: String!) {
+   courses(topic: $courseTopic) {
+     title
+     author
+     description
+     topic
+     url
+   }
+ }
+// query variables
+ {
+     "courseTopic": "Node.js"
+ }
+//Output
+ {
+     "data": {
+       "courses": [
+         {
+           "title": "The Complete Node.js Developer Course",
+           "author": "Andrew Mead, Rob Percival",
+           "description": "Learn Node.js by building real-world applications with Node, Express, MongoDB, Mocha, and more!",
+           "topic": "Node.js",
+           "url": "https://codingthesmartway.com/courses/nodejs/"
+         },
+         {
+           "title": "Node.js, Express & MongoDB Dev to Deployment",
+           "author": "Brad Traversy",
+           "description": "Learn by example building & deploying real-world Node.js applications from absolute scratch",
+           "topic": "Node.js",
+           "url": "https://codingthesmartway.com/courses/nodejs-express-mongodb/"
+         }
+       ]
+     }
+   }
+
+
+
+
+//Getting multiple data
+query getCoursesWithFragments($courseID1: Int!, $courseID2: Int!) {
+  course1: course(id: $courseID1){
+    ...courseFields
+  }
+    course2: course(id: $courseID2){
+    ...courseFields
+  }
+}
+
+fragment courseFields on Course {
+  title
+  author
+  description
+  topic
+  url
+}
+
+//query variable
+{
+  "courseID1": 1,
+  "courseID2": 2
+}
+
+//Output
+{
+  "data": {
+    "course1": {
+      "title": "The Complete Node.js Developer Course",
+      "author": "Andrew Mead, Rob Percival",
+      "description": "Learn Node.js by building real-world applications with Node, Express, MongoDB, Mocha, and more!",
+      "topic": "Node.js",
+      "url": "https://codingthesmartway.com/courses/nodejs/"
+    },
+    "course2": {
+      "title": "Node.js, Express & MongoDB Dev to Deployment",
+      "author": "Brad Traversy",
+      "description": "Learn by example building & deploying real-world Node.js applications from absolute scratch",
+      "topic": "Node.js",
+      "url": "https://codingthesmartway.com/courses/nodejs-express-mongodb/"
+    }
+  }
+}

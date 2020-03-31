@@ -53,32 +53,6 @@ var getCourse = function(data) {
     })[0];
 }
 
-//What to enter to GraphiQL to get course by Id
-// query getCoursesById($courseId: Int!) {
-//   course(id: $courseId) {
-//     title
-//     author
-//     description
-//     topic
-//     url
-//   }
-// }
-//query variable
-// {
-//   "courseId": 1
-// }
-// Output
-// {
-//     "data": {
-//       "course": {
-//         "title": "The Complete Node.js Developer Course",
-//         "author": "Andrew Mead, Rob Percival",
-//         "description": "Learn Node.js by building real-world applications with Node, Express, MongoDB, Mocha, and more!",
-//         "topic": "Node.js",
-//         "url": "https://codingthesmartway.com/courses/nodejs/"
-//       }
-//     }
-//   }
 
 var getCourses = function(data) {
     if (data.topic) {
@@ -90,42 +64,6 @@ var getCourses = function(data) {
         return coursesData;
     }
 }
-
-//what to enter in GraphiQL to get courses by topic
-// query getCoursesForTopic($courseTopic: String!) {
-//   courses(topic: $courseTopic) {
-//     title
-//     author
-//     description
-//     topic
-//     url
-//   }
-// }
-// query variables
-// {
-//     "courseTopic": "Node.js"
-// }
-//Output
-// {
-//     "data": {
-//       "courses": [
-//         {
-//           "title": "The Complete Node.js Developer Course",
-//           "author": "Andrew Mead, Rob Percival",
-//           "description": "Learn Node.js by building real-world applications with Node, Express, MongoDB, Mocha, and more!",
-//           "topic": "Node.js",
-//           "url": "https://codingthesmartway.com/courses/nodejs/"
-//         },
-//         {
-//           "title": "Node.js, Express & MongoDB Dev to Deployment",
-//           "author": "Brad Traversy",
-//           "description": "Learn by example building & deploying real-world Node.js applications from absolute scratch",
-//           "topic": "Node.js",
-//           "url": "https://codingthesmartway.com/courses/nodejs-express-mongodb/"
-//         }
-//       ]
-//     }
-//   }
 
 //a function thats called each time query from the schema needs to be excuted 
 var root = {
