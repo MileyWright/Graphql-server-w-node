@@ -7,7 +7,7 @@ var {buildSchema} = require('graphql');
 var schema = buildSchema(`
     type Query {
         course(id: Int!): Course
-        couses(topic: String): [Course]
+        courses(topic: String): [Course]
     }
     type Course {
         id: Int
@@ -46,9 +46,91 @@ var coursesData = [
     }
 ]
 
+var getCourse = function(data) {
+    var id = data.id;
+    return coursesData.filter(course => {
+        return course.id == id;
+    })[0];
+}
+
+//What to enter to GraphiQL to get course by Id
+// query getCoursesById($courseId: Int!) {
+//   course(id: $courseId) {
+//     title
+//     author
+//     description
+//     topic
+//     url
+//   }
+// }
+//query variable
+// {
+//   "courseId": 1
+// }
+// Output
+// {
+//     "data": {
+//       "course": {
+//         "title": "The Complete Node.js Developer Course",
+//         "author": "Andrew Mead, Rob Percival",
+//         "description": "Learn Node.js by building real-world applications with Node, Express, MongoDB, Mocha, and more!",
+//         "topic": "Node.js",
+//         "url": "https://codingthesmartway.com/courses/nodejs/"
+//       }
+//     }
+//   }
+
+var getCourses = function(data) {
+    if (data.topic) {
+        var topic = data.topic;
+        return coursesData.filter( courses => 
+           courses.topic === topic
+        );
+    } else {
+        return coursesData;
+    }
+}
+
+//what to enter in GraphiQL to get courses by topic
+// query getCoursesForTopic($courseTopic: String!) {
+//   courses(topic: $courseTopic) {
+//     title
+//     author
+//     description
+//     topic
+//     url
+//   }
+// }
+// query variables
+// {
+//     "courseTopic": "Node.js"
+// }
+//Output
+// {
+//     "data": {
+//       "courses": [
+//         {
+//           "title": "The Complete Node.js Developer Course",
+//           "author": "Andrew Mead, Rob Percival",
+//           "description": "Learn Node.js by building real-world applications with Node, Express, MongoDB, Mocha, and more!",
+//           "topic": "Node.js",
+//           "url": "https://codingthesmartway.com/courses/nodejs/"
+//         },
+//         {
+//           "title": "Node.js, Express & MongoDB Dev to Deployment",
+//           "author": "Brad Traversy",
+//           "description": "Learn by example building & deploying real-world Node.js applications from absolute scratch",
+//           "topic": "Node.js",
+//           "url": "https://codingthesmartway.com/courses/nodejs-express-mongodb/"
+//         }
+//       ]
+//     }
+//   }
+
 //a function thats called each time query from the schema needs to be excuted 
 var root = {
-    message: () => 'Hello World'
+    course: getCourse,
+    courses: getCourses
 };
 
 //Create an express server and a GraphQL endpoint
@@ -62,3 +144,4 @@ app.use('/graphql', express_graphql({
 }));
 
 app.listen(4000, () => console.log('Express GraphQL Server Now Running On localhost 4000'));
+
